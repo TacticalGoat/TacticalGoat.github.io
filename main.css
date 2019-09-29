@@ -1,0 +1,295 @@
+:root {
+    --hex-width: calc(40px + 6vmin);
+    --hex-between: 10px;
+    
+    --hex-height: calc(var(--hex-width) / 1.73);
+    --hex-margin: calc(var(--hex-width) / 2);
+    --hex-border: calc(var(--hex-margin) / 1.73);
+    --hex-transition: all .2s ease;
+    
+    --leg-hex-width: calc(var(--hex-width) / 3);
+    --leg-hex-height: calc(var(--leg-hex-width) / 1.73);
+    --leg-hex-margin: calc(var(--leg-hex-width)/ 2);
+    --leg-hex-border: calc(var(--leg-hex-margin)/ 1.73);
+
+    /* Colors */
+    --color-hex-default: #000;
+    --color-hex-hover: #FFFFFF;
+    --color-expert: #8e44ad;
+    --color-adept: #2980b9;
+    --color-intermediate: #27ae60;
+    --color-beginner: #d35400;
+
+    /* Alternate 
+    --color-expert: #4d1635;
+    --color-adept: #112432;
+    --color-intermediate: #5e7783;
+    --color-beginner: #9e9199;*/
+
+}
+
+html {
+    
+}
+
+
+.base-grid {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        "hero hero"
+        "hr-sep hr-sep"
+        "greet-sec greet-img"
+        "hr-sep2 hr-sep2"
+        "skill-grid skill-legend";
+}
+
+@media (max-width: 800px) {
+    :root {
+        --hex-width: calc(30px + 7vmin);
+    }
+    .base-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "hero"
+            "hr-sep"
+            "greet-sec"
+            "greet-img"
+            "hr-sep2"
+            "skill-grid"
+            "skill-legend"
+    }
+}
+
+.hero-section {
+    grid-area: hero;
+}
+
+.hero-section h1 {
+    margin: auto;
+    font-size: calc(25px + 2vw);
+    text-align: center;
+    padding: 10px;
+}
+
+body {
+    max-width: 1080px;
+    margin: auto;
+    /*background-color: #d0d1d3;*/
+    color: #444;
+    font-family: "Open Sans";
+}
+
+.nav {
+    list-style-type: none;
+    overflow: hidden;
+}
+
+.nav ul {
+    float: right;
+    list-style-type: none;
+    font-size: calc(16px + 1vmin);
+}
+
+.nav li {
+    float: left;
+    margin: 1vmin;
+}
+
+.horizontal-seperator {
+    grid-area: hr-sep;
+    height: 2px;
+    background: #444;
+}
+
+.horizontal-seperator.second {
+    grid-area: hr-sep2;
+}
+
+
+.greeting-section {
+    grid-area: greet-sec;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.greeting-section * {
+    text-align: justify;
+}
+
+.greeting-image {
+    grid-area: greet-img;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+
+.skill-grid {
+    grid-area: skill-grid;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.skill-grid .hexagon-container p {
+    text-align: justify;
+    margin: 0 auto;
+    flex-basis: 100%;
+    max-width: 48%;
+}
+
+.hexagon-container {
+    align-self: center;
+    display: grid;
+    grid-template-columns: var(--hex-width) var(--hex-width) var(--hex-width) var(--hex-width);
+    grid-auto-rows: calc(var(--hex-width) - 28.78px/2);
+    grid-gap: var(--hex-between) var(--hex-between);
+    padding-bottom: var(--hex-border);
+}
+
+.hexagon {
+    align-items: center;
+    background-color: var(--color-hex-default);
+    cursor: pointer;
+    display: flex;
+    fill: white;
+    height: var(--hex-height);
+    justify-content: center;
+    margin: var(--hex-border) 0;
+    position: relative;
+    transition: var(--hex-transition);
+    width: var(--hex-width);
+}
+
+.hexagon::after, .hexagon::before {
+    border-left: var(--hex-margin) solid transparent;
+    border-right: var(--hex-margin) solid transparent;
+    content: "";
+    left: 0;
+    position: absolute;
+    transition: var(--hex-transition);
+    width: 0;
+}
+.hexagon::after {
+    border-top: var(--hex-border) solid var(--color-hex-default);
+    top: 100%;
+    width: 0;
+}
+
+.hexagon::before {
+    border-bottom: var(--hex-border) solid var(--color-hex-default);
+    bottom: 100%;
+}
+
+.hexagon:hover {
+    background-color: var(--color-hex-hover);
+}
+
+.hexagon:hover::after, .hexagon:hover::before {
+  border-top-color: var(--color-hex-hover);
+  border-bottom-color: var(--color-hex-hover);
+}
+
+.hexagon:nth-child(8n + 5),.hexagon:nth-child(8n + 6),.hexagon:nth-child(8n + 7),.hexagon:nth-child(8n + 8) {
+  margin-left: calc(var(--hex-width) / 2 + var(--hex-between) / 2);
+}
+
+.hexagon > svg {
+  height: 75%;
+  transition: var(--hex-transition);
+}
+
+.expert {
+    background-color: var(--color-expert);
+}
+.expert::after, .expert::before {
+    border-top-color: var(--color-expert);
+    border-bottom-color: var(--color-expert);
+}
+
+.expert:hover {
+    fill: var(--color-expert);
+}
+
+.adept {
+    background-color: var(--color-adept);
+}
+.adept::after, .adept::before {
+    border-top-color: var(--color-adept);
+    border-bottom-color: var(--color-adept);
+}
+
+.adept:hover {
+    fill: var(--color-adept);
+}
+
+.intermediate {
+    background-color: var(--color-intermediate);
+}
+.intermediate::after, .intermediate::before {
+    border-top-color: var(--color-intermediate);
+    border-bottom-color: var(--color-intermediate);
+}
+
+.intermediate:hover {
+    fill: var(--color-intermediate);
+}
+
+.beginner {
+    background-color: var(--color-beginner);
+}
+.beginner::after, .beginner::before {
+    border-top-color: var(--color-beginner);
+    border-bottom-color: var(--color-beginner);
+}
+
+.beginner:hover {
+    fill: var(--color-beginner);
+}
+
+.skill-legend {
+    grid-area: skill-legend;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: auto;
+    padding: 10px;
+    border-left: solid;
+    border-width: 2px;
+    min-width: 360p;
+}
+
+.legend-hex {
+    background-color: var(--color-hex-default);
+    height: var(--leg-hex-height);
+    position: relative;
+    width: var(--leg-hex-width);
+    margin: var(--leg-hex-border);
+}
+
+.legend-hex::after, .legend-hex::before {
+    border-left: var(--leg-hex-margin) solid transparent;
+    border-right: var(--leg-hex-margin) solid transparent;
+    content: "";
+    left: 0;
+    position: absolute;
+    transition: var(--hex-transition);
+    width: 0;
+}
+.legend-hex::after {
+    border-top: var(--leg-hex-border) solid var(--color-hex-default);
+    top: 100%;
+    width: 0;
+}
+
+.legend-hex::before {
+    border-bottom: var(--leg-hex-border) solid var(--color-hex-default);
+    bottom: 100%;
+}
+
+.legend-item {
+    display: flex;
+    align-items: baseline;
+}
